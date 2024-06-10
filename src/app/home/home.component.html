@@ -1,0 +1,45 @@
+<div class="column gap-1">
+
+  <div class="row justify-end">
+    <button
+      type="button"
+      pButton
+      icon="pi pi-plus"
+      (click)="showAddDialog()"
+      label="Add Product"
+      class="add-product-btn"></button>
+  </div>
+
+  <div class="row wrap gap-1 space-between">
+    <app-product *ngFor="let product of products"
+                 [product]="product"
+                 (edit)="showEditDialog($event)"
+                 (delete)="showDeleteDialog($event)"/>
+  </div>
+
+  <p-paginator
+    [rows]="rows"
+    [totalRecords]="totalRecords"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    (onPageChange)="onPageChange($event)"
+    #paginator
+  />
+
+</div>
+
+<!-- Add Product -->
+<app-edit-dialog
+  [(visible)]="isAddDialogVisible"
+  (confirm)="onConfirmAdd($event)"
+  header="Add Product"
+/>
+
+<!-- Edit Product -->
+<app-edit-dialog
+  [product]="selectedProduct"
+  [(visible)]="isEditDialogVisible"
+  (confirm)="onConfirmEdit($event)"
+  header="Edit Product"
+/>
+
+
